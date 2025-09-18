@@ -1,4 +1,6 @@
 # E-commerce microservices backend built with Spring Boot and Spring Cloud
+<img width="410" height="210" alt="spring_boot_microservices" src="https://github.com/user-attachments/assets/e8d8a365-04c9-42f3-983f-0f2b75a65596" />
+
 
 ## Overview of what we will build :
 
@@ -34,3 +36,14 @@ The services communicate with each other using RESTful APIs and Feign clients.
 - The configuration server manages the configuration settings for all microservices.
 - Secrets management is handled by HashiCorp Vault, ensuring secure storage and access to sensitive information.
 ---
+    Each microservie, at its core, will have the following architecture : 
+<table>
+  <tr>
+    <td>
+        <img width="600" height="430" alt="spring_cloud_microservice" src="https://github.com/user-attachments/assets/b2572140-a0e3-4ec3-b6fb-cf8941d4c2cc" />
+    </td>
+    <td>testing</td>
+  </tr>
+</table>
+
+
