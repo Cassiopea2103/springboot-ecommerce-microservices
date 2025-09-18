@@ -42,7 +42,7 @@ The services communicate with each other using RESTful APIs and Feign clients.
     <td>
         <img width="600" height="430" alt="spring_cloud_microservice" src="https://github.com/user-attachments/assets/b2572140-a0e3-4ec3-b6fb-cf8941d4c2cc" />
     </td>
-    <td>testing</td>
+    <td>testig</td>
   </tr>
 </table>
 
