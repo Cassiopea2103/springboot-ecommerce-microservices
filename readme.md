@@ -36,13 +36,20 @@ The services communicate with each other using RESTful APIs and Feign clients.
 - The configuration server manages the configuration settings for all microservices.
 - Secrets management is handled by HashiCorp Vault, ensuring secure storage and access to sensitive information.
 ---
-    Each microservie, at its core, will have the following architecture : 
+Each microservie, at its core, will have the following architecture : 
 <table>
   <tr>
     <td>
         <img width="600" height="430" alt="spring_cloud_microservice" src="https://github.com/user-attachments/assets/b2572140-a0e3-4ec3-b6fb-cf8941d4c2cc" />
     </td>
-    <td>testig</td>
+    <td valign="top">
+        <ul>
+            <li>The controller handles incoming HTTP requests from clients</li>
+            <li>It then calls a service which manages core business logic </li>
+            <li>The service uses a repository to communicate with the database </li>
+            <li>On microservices requiring asynchronous processing, the service can call a message queue too ( eg. Kafka ).</li>
+        </ul>
+    </td>
   </tr>
 </table>
 
