@@ -13,12 +13,15 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="order_line_items")
+@Table(name = "order_line_items")
 public class OrderLineItem {
     @Id
-    @GeneratedValue ( strategy = GenerationType.IDENTITY )
-    private Long id ;
-    private String skuCode ;
-    private Integer quantity ;
-    private BigDecimal price ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String skuCode;
+    private Integer quantity;
+    private BigDecimal price;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 }

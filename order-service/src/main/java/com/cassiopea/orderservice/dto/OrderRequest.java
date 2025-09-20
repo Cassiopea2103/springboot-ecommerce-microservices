@@ -3,9 +3,10 @@ package com.cassiopea.orderservice.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class OrderRequest {
-    private String orderNumber ;
-    private OrderLineItemDto [] orderLineItemDtos ;
+    private List<OrderLineItemDto> orderLineItemDTOs;
 }
