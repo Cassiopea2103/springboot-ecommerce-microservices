@@ -7,8 +7,9 @@ import lombok.Data;
 @Data
 @Builder
 public class InventoryRequest {
-    @NotNull ( message = "skuCode is required")
-    private String skuCode ;
-    @NotNull (message = "Quantity is required.")
-    private Integer quantity ;
+    @NotNull(message = "skuCode is required")
+
+    private String skuCode;
+    @NotNull(message = "Quantity is required.")
+    private Integer quantity;
 }
