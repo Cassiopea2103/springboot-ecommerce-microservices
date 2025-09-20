@@ -69,3 +69,16 @@ In order to maintain a certain logic, we establish inter-service communication.
 For that purpose, there are many options ( WebClient , RestTemplate ... ).  
 For our implementation, we use `WebClient`. As an explicit example, before placing an order inside the order service, we
 do checks with the inventory service to see if quantity in cart are well available. 
+---
+
+## Discovery Server
+So far, so good. Our microservices can communicate via WebClient and make RESTful calls.   
+But all of this is on localhost. Our design is suited for cloud-native solutions.  
+On the cloud : 
+1. We can have multiple deployments (each with its own address) for the same service.
+2. IP address change often between instances restarts, crashes ...
+   
+This doesn't fit with our previous approach. To solve the problem , we implement a discovery server.
+A `discovery server` is like a registry containing a mapping between service names and their current valid addresses. 
+With that, a service can be identified via it's defined name and its data can be accessed accordingly without hardcoding addresses.
+<img width="1332" height="442" alt="discovery-service" src="https://github.com/user-attachments/assets/b4cf37a6-6b40-4ddd-bc7c-a4c398f08b4e" />
