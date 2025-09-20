@@ -63,6 +63,7 @@ Each microservie, at its core, will have the following architecture :
 
 Each microservice in our architecture is decoupled from others. In other terms, one microservice cannot directly access
 to another one's data.
-In order to maintain a certain logic, we establish inter-service communication.
-For that purpose, there are many options ( WebClient , RestTemplate ... ).
-For our implementation, we use WebClient.
+In order to maintain a certain logic, we establish inter-service communication.  
+For that purpose, there are many options ( WebClient , RestTemplate ... ).   
+For our implementation, we use WebClient. As an explicit example, before placing an order inside the order service, we
+do checks with the inventory service to see if quantity in cart are well available. 
