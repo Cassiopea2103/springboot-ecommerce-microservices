@@ -61,6 +61,8 @@ Each microservie, at its core, will have the following architecture :
 
 ## Inter-service communication
 
+<img width="460" height="309" alt="inter-service-communication" src="https://github.com/user-attachments/assets/a75e53e8-78e9-40b5-9e04-1d748fec4858" />
+
 Each microservice in our architecture is decoupled from others. In other terms, one microservice cannot directly access
 to another one's data.
 In order to maintain a certain logic, we establish inter-service communication.  
