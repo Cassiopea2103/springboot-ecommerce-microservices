@@ -32,6 +32,11 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
+    @GetMapping("/sku/{skuCode}")
+    public void checkProductBySkuCode(@PathVariable String skuCode) {
+        productService.checkProductBySkuCode(skuCode);
+    }
+
     @PostMapping
     public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest request) {
         ProductResponse newProduct = productService.createProduct(request);
