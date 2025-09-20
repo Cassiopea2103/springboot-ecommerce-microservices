@@ -1,6 +1,6 @@
 # E-commerce microservices backend built with Spring Boot and Spring Cloud
-<img width="410" height="210" alt="spring_boot_microservices" src="https://github.com/user-attachments/assets/e8d8a365-04c9-42f3-983f-0f2b75a65596" />
 
+<img width="410" height="210" alt="spring_boot_microservices" src="https://github.com/user-attachments/assets/e8d8a365-04c9-42f3-983f-0f2b75a65596" />
 
 ## Overview of what we will build :
 
@@ -19,12 +19,15 @@
 * Dockerization of services for easy deployment and scalability
 * Monitoring of the solution with `Prometheus` and `Grafana`
 
-## System architecture 
+## System architecture
+
 <img width="1610" height="1000" alt="spring_cloud_system_architecture" src="https://github.com/user-attachments/assets/7893d443-0d03-4076-b52a-33d7a5550835" />
 
-The system architecture consists of multiple microservices, each responsible for a specific domain within the e-commerce application. 
+The system architecture consists of multiple microservices, each responsible for a specific domain within the e-commerce
+application.
 The services communicate with each other using RESTful APIs and Feign clients.
-- The API Gateway serves as the entry point for all client requests, routing them to the appropriate microservice. 
+
+- The API Gateway serves as the entry point for all client requests, routing them to the appropriate microservice.
 - Service discovery is handled by Netflix Eureka, allowing services to find and communicate with each other dynamically.
 - Keycloak is used for securing the services, providing authentication and authorization.
 - Resilience4j is implemented to ensure fault tolerance and resilience in case of service failures.
@@ -35,8 +38,9 @@ The services communicate with each other using RESTful APIs and Feign clients.
 - The database layer consists of MySQL for relational data and MongoDB for NoSQL data storage.
 - The configuration server manages the configuration settings for all microservices.
 - Secrets management is handled by HashiCorp Vault, ensuring secure storage and access to sensitive information.
+
 ---
-Each microservie, at its core, will have the following architecture : 
+Each microservie, at its core, will have the following architecture :
 <table>
   <tr>
     <td>
@@ -53,4 +57,12 @@ Each microservie, at its core, will have the following architecture :
   </tr>
 </table>
 
+---
 
+## Inter-service communication
+
+Each microservice in our architecture is decoupled from others. In other terms, one microservice cannot directly access
+to another one's data.
+In order to maintain a certain logic, we establish inter-service communication.
+For that purpose, there are many options ( WebClient , RestTemplate ... ).
+For our implementation, we use WebClient.
