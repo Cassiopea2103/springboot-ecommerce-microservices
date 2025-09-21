@@ -84,5 +84,5 @@ With that, a service can be identified via it's defined name and its data can be
 <img width="1332" height="442" alt="discovery-service" src="https://github.com/user-attachments/assets/b4cf37a6-6b40-4ddd-bc7c-a4c398f08b4e" />
 
 With this setup, communication between microservices transit by the discovery server as described by the following schema : 
-<img width="610" height="310" alt="communication-discovery-server" src="https://github.com/user-attachments/assets/62aa66a8-f1fb-4746-8c9c-322ae32f47bd" />
+<img width="720" height="381" alt="communication-discovery-server" src="https://github.com/user-attachments/assets/740d9a3e-26be-40fc-9368-cd9054d31a44" />
 
