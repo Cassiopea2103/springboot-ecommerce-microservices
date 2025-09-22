@@ -13,8 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -37,12 +35,6 @@ public class ProductService {
     public void checkProductBySkuCode(String skuCode) {
         boolean exists = productRepository.existsBySkuCode(skuCode);
         if (!exists) throw new ProductNotFoundException("Product with SKU CODE " + skuCode + " not found.");
-    }
-
-    public BigDecimal getPriceBySkuCode(String skuCode) {
-        Product product = productRepository.findBySkuCode(skuCode);
-        if (product == null) throw new ProductNotFoundException("Product with SKU CODE " + skuCode + " not found.");
-        return product.getPrice();
     }
 
     public ProductResponse createProduct(ProductRequest productRequest) {
