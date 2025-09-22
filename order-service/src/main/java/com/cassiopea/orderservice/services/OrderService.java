@@ -1,7 +1,6 @@
 package com.cassiopea.orderservice.services;
 
 import com.cassiopea.orderservice.dto.InventoryResponseDTO;
-import com.cassiopea.orderservice.dto.OrderLineItemDto;
 import com.cassiopea.orderservice.dto.OrderRequest;
 import com.cassiopea.orderservice.dto.OrderResponse;
 import com.cassiopea.orderservice.entities.Order;
@@ -9,7 +8,7 @@ import com.cassiopea.orderservice.entities.OrderLineItem;
 import com.cassiopea.orderservice.exceptions.types.InventoryException;
 import com.cassiopea.orderservice.exceptions.types.OrderNotFoundException;
 import com.cassiopea.orderservice.mappers.OrderLineItemMapper;
-import com.cassiopea.orderservice.mappers.OrderResponseMapper;
+import com.cassiopea.orderservice.mappers.OrderMapper;
 import com.cassiopea.orderservice.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +20,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -38,22 +36,21 @@ public class OrderService {
     public Page<OrderResponse> getAllOrders(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<OrderResponse> orders = orderRepository.findAll(pageable)
-                .map(OrderResponseMapper::toOrderResponse);
+                .map(OrderMapper::toOrderDTO);
         if (orders.isEmpty()) throw new OrderNotFoundException("No orders found!");
         return orders;
     }
 
     public OrderResponse getOrderById(Long id) {
         return orderRepository.findById(id)
-                .map(OrderResponseMapper::toOrderResponse)
+                .map(OrderMapper::toOrderDTO)
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID " + id + " not found!"));
     }
 
     public Mono<OrderResponse> createOrder(OrderRequest request) {
 
-        List<OrderLineItem> orderLineItems = Arrays.stream(request.getOrderLineItemDtos())
-                .map(OrderLineItemMapper::toOrderLineItem)
-                .toList();
+        List<OrderLineItem> orderLineItems = request.getOrderLineItemDTOs().stream()
+                .map(OrderLineItemMapper::toOrderLineItem).toList();
 
         // check stock availability via inventory service :
         Map<String, Integer> requestedSkus = orderLineItems.stream()
@@ -89,13 +86,15 @@ public class OrderService {
                                 }
                                 return Mono.error(new InventoryException(errorMessage.toString()));
                             }
-                            // 3. create order
-                            Order newOrder = Order.builder()
-                                    .orderNumber(UUID.randomUUID().toString())
-                                    .orderLineItems(orderLineItems)
-                                    .build();
-                            // 4. persist order entity to database :
-                            Order savedOrder = orderRepository.save(newOrder);
+                            // 3.create order :
+                            return Mono.fromCallable(() -> {
+                                Order newOrder = Order.builder()
+                                        .orderNumber(UUID.randomUUID().toString())
+                                        .orderLineItems(orderLineItems)
+                                        .build();
+                                Order savedOrder = orderRepository.save(newOrder);
+                                return OrderMapper.toOrderDTO(savedOrder);
+                            });
                         }
                 );
     }
