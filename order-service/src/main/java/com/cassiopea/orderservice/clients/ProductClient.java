@@ -12,3 +12,4 @@ public interface ProductClient {
     @GetMapping("/{skuCode}/price")
     BigDecimal getPriceBySkuCode(@PathVariable String skuCode);
 }
+

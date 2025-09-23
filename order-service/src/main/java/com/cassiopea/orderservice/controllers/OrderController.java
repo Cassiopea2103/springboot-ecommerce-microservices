@@ -39,8 +39,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Mono<OrderResponse>> createOrder(@RequestBody OrderRequest orderRequest) {
-        Mono<OrderResponse> newOrder = orderService.createOrder(orderRequest);
+    public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest) {
+        OrderResponse newOrder = orderService.createOrder(orderRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(newOrder);
     }
 
