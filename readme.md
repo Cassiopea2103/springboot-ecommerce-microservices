@@ -68,22 +68,27 @@ to another one's data.
 In order to maintain a certain logic, we establish inter-service communication.  
 For that purpose, there are many options ( WebClient , RestTemplate ... ).  
 For our implementation, we use `WebClient`. As an explicit example, before placing an order inside the order service, we
-do checks with the inventory service to see if quantity in cart are well available. 
+do checks with the inventory service to see if quantity in cart are well available.
 ---
 
 ## Discovery Server
+
 So far, so good. Our microservices can communicate via WebClient and make RESTful calls.   
 But all of this is on localhost. Our design is suited for cloud-native solutions.  
-On the cloud : 
+On the cloud :
+
 1. We can have multiple deployments (each with its own address).
-The requesting service won't know which one is available.
+   The requesting service won't know which one is available.
 2. IP address change often between instances restarts, crashes ...
-   
+
 This doesn't fit with our previous approach. To solve the problem , we implement a discovery server.
-A `discovery server` is like a registry containing a mapping between service names and their current valid addresses. 
-With that, a service can be identified via it's defined name and its data can be accessed accordingly without hardcoding addresses.
+A `discovery server` is like a registry containing a mapping between service names and their current valid addresses.
+With that, a service can be identified via it's defined name and its data can be accessed accordingly without hardcoding
+addresses.
 <img width="1331" height="442" alt="discovery-service" src="https://github.com/user-attachments/assets/2b54c9a0-932b-445a-93c8-309eae74e78c" />
 
-With this setup, communication between microservices transit by the discovery server as described by the following schema : 
+With this setup, communication between microservices transit by the discovery server as described by the following
+schema :
 <img width="720" height="381" alt="communication-discovery-server" src="https://github.com/user-attachments/assets/740d9a3e-26be-40fc-9368-cd9054d31a44" />
-
+_Additionally , the discovery server will send a copy of its registry to each microservices so that they can directly
+query other microservices without requesting it._
