@@ -102,3 +102,13 @@ ideal for a production environment where microservices addresses can change freq
 <img width="520" height="340" alt="API_GATEWAY" src="https://github.com/user-attachments/assets/05b7bf56-e34e-41d0-92c3-1fd86739a713" />
 An API Gateway solves this problem by providing routing capabilities. Clients can make requests to the API Gateway,
 which then forwards the requests to the appropriate microservice based on predefined routing rules.
+
+Additionally, the gateway can also handle cross-cutting concerns such as :
+
+- authentication and authorization
+- rate limiting
+- load balancing
+- logging
+- caching
+- request and response transformations
+- more ...
