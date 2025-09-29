@@ -98,6 +98,7 @@ query other microservices without requesting it._
 The API Gateway is a server that acts as an entry point for all client requests to the microservices. It handles
 routing, load balancing and much more.
 With the current setup, client would have to know the exact address of each microservice to make requests. This is not
-ideal for a production environment where microservices addresses can change frequently. 
+ideal for a production environment where microservices addresses can change frequently.
 <img width="520" height="340" alt="API_GATEWAY" src="https://github.com/user-attachments/assets/05b7bf56-e34e-41d0-92c3-1fd86739a713" />
-
+An API Gateway solves this problem by providing routing capabilities. Clients can make requests to the API Gateway,
+which then forwards the requests to the appropriate microservice based on predefined routing rules.
