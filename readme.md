@@ -112,3 +112,7 @@ Additionally, the gateway can also handle cross-cutting concerns such as :
 - caching
 - request and response transformations
 - more ...
+
+## Keycloak security
+
+To secure our microservices, we use Keycloak.
