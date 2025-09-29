@@ -92,3 +92,10 @@ schema :
 <img width="720" height="381" alt="communication-discovery-server" src="https://github.com/user-attachments/assets/740d9a3e-26be-40fc-9368-cd9054d31a44" />
 _Additionally , the discovery server will send a copy of its registry to each microservices so that they can directly
 query other microservices without requesting it._
+
+## API Gateway
+
+The API Gateway is a server that acts as an entry point for all client requests to the microservices. It handles
+routing, load balancing and much more.
+With the current setup, client would have to know the exact address of each microservice to make requests. This is not
+ideal for a production environment where microservices addresses can change frequently. 
