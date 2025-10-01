@@ -7,12 +7,42 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/inventory_service
     username: cassiopea
-    password: Saliou2103wade@
+    password: Saliou2103wade
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    circuitbreakers:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      inventory:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        sliding-window-type: count_based
+        sliding-window-size: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state:
+          seconds: 30
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
 
 server:
   port: 0
-com:
-  cassiopea:
-    product-service-url:
+

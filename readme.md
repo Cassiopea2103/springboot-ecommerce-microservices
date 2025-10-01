@@ -121,13 +121,14 @@ roles ...).
 The endpoints are secured then using Spring security with ant matchers to for specific paths.
 
 ## Resilience4j - Circuit Breaker
+
 <img width="615" height="480" alt="circuit-breaker" src="https://github.com/user-attachments/assets/8ad1ba1f-667e-4b87-87fb-c89c8b678617" />
 
 
 The circuit breaker pattern improves drastically our system resilience by operation under 3 different states : closed ,
 half-opened and opened.
 
-- When services are communication and the requests are successful, the circuit breaker remains closed. In that state
+- When communication between services is working fine, the circuit breaker remains closed. In that state
   everything flows.
 - When the number of failing requests goes over the threshold configured, the circuit breaker transitions to opened
   status in order to rejet next incoming requests instantly ( without waiting for request timeout ). Thus , it allows
