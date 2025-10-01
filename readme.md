@@ -113,6 +113,9 @@ Additionally, the gateway can also handle cross-cutting concerns such as :
 - request and response transformations
 - more ...
 
-## Keycloak security
+## Keycloak & Spring security
 
-To secure our microservices, we use Keycloak.
+To secure our microservices,we combine spring security with keycloak.
+Inside the keycloak server, we can have a centralized management of our security domain ( realm , client , users ,
+roles ...).
+The endpoints are secured then using Spring security with ant matchers to for specific paths. 
