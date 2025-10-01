@@ -3,6 +3,7 @@ package com.cassiopea.productservice.controllers;
 import com.cassiopea.productservice.dto.ProductRequest;
 import com.cassiopea.productservice.dto.ProductResponse;
 import com.cassiopea.productservice.services.ProductService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
