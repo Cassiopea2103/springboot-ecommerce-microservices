@@ -118,4 +118,18 @@ Additionally, the gateway can also handle cross-cutting concerns such as :
 To secure our microservices,we combine spring security with keycloak.
 Inside the keycloak server, we can have a centralized management of our security domain ( realm , client , users ,
 roles ...).
-The endpoints are secured then using Spring security with ant matchers to for specific paths. 
+The endpoints are secured then using Spring security with ant matchers to for specific paths.
+
+## Resilience4j - Circuit Breaker
+
+The circuit breaker pattern improves drastically our system resilience by operation under 3 different states : closed ,
+half-opened and opened.
+
+- When services are communication and the requests are successful, the circuit breaker remains closed. In that state
+  everything flows.
+- When the number of failing requests goes over the threshold configured, the circuit breaker transitions to opened
+  status in order to rejet next incoming requests instantly ( without waiting for request timeout ). Thus , it allows
+  the failing service to recover without any additional charge.
+- After a moment , the circuit breaker will go back to half-opened to monitor and test a limited request to the failing
+  service. If the limited requests test are passing , it means the once failing service is up again, therefore the
+  circuit breaker transitions back to closed state. Otherwise , it switches back again to state opened .
