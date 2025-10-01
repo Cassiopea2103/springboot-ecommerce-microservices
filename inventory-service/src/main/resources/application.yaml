@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: inventory-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://localhost:3306/inventory_service
+    username: cassiopea
+    password: Saliou2103wade@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+server:
+  port: 0
+com:
+  cassiopea:
+    product-service-url:

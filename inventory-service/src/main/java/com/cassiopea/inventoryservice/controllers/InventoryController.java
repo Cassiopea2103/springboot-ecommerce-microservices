@@ -45,8 +45,8 @@ public class InventoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Mono<InventoryResponse>> createInventory(@Valid @RequestBody InventoryRequest request) {
-        Mono<InventoryResponse> createdInventory = inventoryService.createInventory(request);
+    public ResponseEntity<InventoryResponse> createInventory(@Valid @RequestBody InventoryRequest request) {
+        InventoryResponse createdInventory = inventoryService.createInventory(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdInventory);
     }
 

@@ -1,26 +1,19 @@
 package com.cassiopea.inventoryservice.services;
 
+import com.cassiopea.inventoryservice.clients.ProductClient;
 import com.cassiopea.inventoryservice.dto.InventoryQuantityRequest;
 import com.cassiopea.inventoryservice.dto.InventoryRequest;
 import com.cassiopea.inventoryservice.dto.InventoryResponse;
 import com.cassiopea.inventoryservice.entities.Inventory;
 import com.cassiopea.inventoryservice.exceptions.types.InvalidQuantityException;
 import com.cassiopea.inventoryservice.exceptions.types.InventoryNotFoundException;
-import com.cassiopea.inventoryservice.exceptions.types.ProductNotFoundException;
 import com.cassiopea.inventoryservice.mappers.InventoryMapper;
 import com.cassiopea.inventoryservice.repositories.InventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
-import org.springframework.web.server.ResponseStatusException;
-import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 import java.util.*;
 
@@ -28,7 +21,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class InventoryService {
     private final InventoryRepository inventoryRepository;
-    private final WebClient webClient;
+    private final ProductClient productClient;
 
     public Page<InventoryResponse> getAllInventoryItems(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -84,22 +77,15 @@ public class InventoryService {
         );
     }
 
-    public Mono<InventoryResponse> createInventory(InventoryRequest request) {
+    public InventoryResponse createInventory(InventoryRequest request) {
+        // check if sku code exists ( if it fails , it will throw an exception ) :
+        productClient.checkProductBySkuCode(request.getSkuCode());
+
+        // proceed to inventory creation :
         Inventory newInventory = InventoryMapper.requestToInventory(request);
-        // check if sku code exists :
-        return webClient.get()
-                .uri(uriBuilder ->
-                        uriBuilder.path("/sku/{skuCode}").build(request.getSkuCode())
-                )
-                .exchangeToMono(response -> {
-                            if (response.statusCode().is2xxSuccessful()) {
-                                // proceed to order creation :
-                                return Mono.fromCallable(() -> InventoryMapper.toInventoryResponse(inventoryRepository.save(newInventory)));
-                            } else {
-                                return Mono.error(() -> new ProductNotFoundException("Product with SKU " + request.getSkuCode() + " not found!"));
-                            }
-                        }
-                );
+        Inventory createdInventory = inventoryRepository.save(newInventory);
+        return InventoryMapper.toInventoryResponse(createdInventory);
+
     }
 
     public InventoryResponse updateQuantity(Long id, InventoryQuantityRequest request) {
